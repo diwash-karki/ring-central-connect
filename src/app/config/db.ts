@@ -9,7 +9,7 @@ if (!MONGODB_URI) {
 interface Cached {
     conn: typeof mongoose | null;
     promise: Promise<typeof mongoose> | null;
-}
+}uu
 
 declare global {
     // eslint-disable-next-line no-var
