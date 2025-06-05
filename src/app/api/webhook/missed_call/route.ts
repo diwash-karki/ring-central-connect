@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import connectDB from '@/app/config/db';
 import MissedCall from '@/app/models/MissedCall';
 
-export async function GET(request: Request) {
+export async function GET() {
   try {
     await connectDB();
     const missedCalls = await MissedCall.find();
@@ -28,7 +28,7 @@ export async function POST(request: Request) {
 
     console.log('Received data from RingCentral (via GET):', data);
 
-    const missedCall = await MissedCall.create({
+    await MissedCall.create({
       ...data,
       createdAt: new Date(),
       updatedAt: new Date()
