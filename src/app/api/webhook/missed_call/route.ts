@@ -1,33 +1,24 @@
 import { NextResponse } from 'next/server';
-import type { NextRequest } from 'next/server';
 
-export async function POST(request: NextRequest) {
+export async function GET(request: Request) {
   try {
-    const body = await request.json();
-    
-    // Log the webhook payload
-    console.log('Missed call webhook received:', body);
+    const url = new URL(request.url);
+    const params = Object.fromEntries(url.searchParams.entries());
 
-    // Process the missed call webhook
-    // Add your business logic here
+    console.log('Received data from RingCentral (via GET):', params);
 
-    return NextResponse.json({ 
-      success: true, 
-      message: 'Webhook processed successfully' 
-    });
+    return NextResponse.json({
+      success: true,
+      message: 'Data received successfully via GET',
+      data: params
+    }, { status: 200 });
+
   } catch (error) {
-    console.error('Error processing webhook:', error);
-    return NextResponse.json(
-      { 
-        success: false, 
-        message: 'Error processing webhook' 
-      },
-      { status: 500 }
-    );
+    console.error('Error processing GET webhook:', error);
+    return NextResponse.json({
+      success: false,
+      message: 'Error processing webhook',
+      error: error instanceof Error ? error.message : 'Unknown error'
+    }, { status: 500 });
   }
-}
-
-// Handle OPTIONS request for CORS
-export async function OPTIONS() {
-  return NextResponse.json({}, { status: 200 });
 }
