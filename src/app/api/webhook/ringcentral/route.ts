@@ -4,7 +4,7 @@ import connectDB from '@/app/config/db';
 export async function POST(request: Request) {
     try {
         // Connect to MongoDB
-        // await connectDB();
+        await connectDB();
 
         // Parse the incoming request body
         const data = await request.json();
