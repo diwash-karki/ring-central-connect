@@ -1,7 +1,9 @@
 import { NextResponse } from 'next/server';
+import connectDB from '@/app/config/db';
 
 export async function GET(request: Request) {
   try {
+    await connectDB();
     const url = new URL(request.url);
     const params = Object.fromEntries(url.searchParams.entries());
 
