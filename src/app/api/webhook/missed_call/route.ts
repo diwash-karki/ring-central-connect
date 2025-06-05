@@ -25,8 +25,7 @@ export async function POST(request: Request) {
   try {
     await connectDB();
     const data = await request.json();
-
-    console.log('Received data from RingCentral (via GET):', data);
+    console.log('Received data from RingCentral (via POST):', data);
 
     await MissedCall.create({
       ...data,
@@ -36,12 +35,12 @@ export async function POST(request: Request) {
 
     return NextResponse.json({
       success: true,
-      message: 'Data received successfully via GET',
+      message: 'Data received successfully via POST',
       data: data
     }, { status: 200 });
 
   } catch (error) {
-    console.error('Error processing GET webhook:', error);
+    console.error('Error processing POST webhook:', error);
     return NextResponse.json({
       success: false,
       message: 'Error processing webhook',
